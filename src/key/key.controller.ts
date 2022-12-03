@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
-import { KeyDto, TimeKeyDto } from './dto';
+import { TimeKeyDto } from './dto';
 import { KeyService } from './key.service';
 
 @Controller('keys')
@@ -16,7 +16,7 @@ export class KeyController {
   }
 
   @Delete()
-  deleteKey(@Body() dto: KeyDto) {
+  deleteKey(@Body() dto: TimeKeyDto) {
     return this.keyService.deleteKey(dto);
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { KeyDto, TimeKeyDto } from './dto';
+import { TimeKeyDto } from './dto';
 
 @Injectable()
 export class KeyService {
@@ -58,19 +58,21 @@ export class KeyService {
     return { message: 'added time restricted key', result };
   }
 
-  // delete a key asigned to an user(email) for a certain door(accessId)
-  async deleteKey(dto: KeyDto) {
-    const { email, accessId } = dto;
+  // delete a key asigned to an user(email) for a certain door(accessId) in a certain time framework(startDate, expirationDate)
+  async deleteKey(dto: TimeKeyDto) {
+    const { email, accessId, startDate, expirationDate } = dto;
 
     const bodyData = {
       delete: [
         {
           access: {
-            accessId,
+            id: accessId,
           },
           user: {
             email,
           },
+          startDate,
+          expirationDate,
         },
       ],
     };
