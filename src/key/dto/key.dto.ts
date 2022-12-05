@@ -8,15 +8,6 @@ export class KeyDto {
   @IsString()
   @IsNotEmpty()
   email: string;
-}
-export class TimeKeyDto {
-  @IsString()
-  @IsNotEmpty()
-  accessId: string;
-
-  @IsString()
-  @IsNotEmpty()
-  email: string;
 
   @IsDateString()
   @IsNotEmpty()

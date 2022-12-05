@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { TimeKeyDto } from './dto';
+import { ConfigService } from '@nestjs/config';
+import { KeyDto } from './dto';
 
 @Injectable()
 export class KeyService {
-  token = process.env.PARAKEY_ACCESS_TOKEN;
-  domainId = process.env.PARAKEY_DOMAIN_ID;
   url = 'https://api.parakey.co/access-keys';
+  constructor(private config: ConfigService) {}
+
+  token = this.config.get('PARAKEY_ACCESS_TOKEN');
+  domainId = this.config.get('PARAKEY_DOMAIN_ID');
 
   // get all keys for a certain domain (domain = flowpass)
   async getKeys() {
@@ -25,7 +28,7 @@ export class KeyService {
   }
 
   // create key for an user(email) for a certain door(accessId) in a certain time framework(startDate, expirationDate)
-  async addKey(dto: TimeKeyDto) {
+  async addKey(dto: KeyDto) {
     const { email, accessId, startDate, expirationDate } = dto;
     console.log(dto);
     const bodyData = {
@@ -59,7 +62,7 @@ export class KeyService {
   }
 
   // delete a key asigned to an user(email) for a certain door(accessId) in a certain time framework(startDate, expirationDate)
-  async deleteKey(dto: TimeKeyDto) {
+  async deleteKey(dto: KeyDto) {
     const { email, accessId, startDate, expirationDate } = dto;
 
     const bodyData = {
